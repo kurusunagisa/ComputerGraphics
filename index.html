@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>ComputerGraphics</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        const today = new Date();
+        let time = today.getTime();
+        document.write("<b>1970年1月1日0時0分0秒から" + time + "ミリ秒が経過しています</b><br>");
+        document.write("<h1>私のページです！</h1>");
+        document.write("<p>私のバーチャルアバターを貼っておきます！かわいいでしょ！</p>");
+        let image = document.createElement('img');
+        image.height = 300;
+        image.width = 450;
+        image.src = "virtual_avatar.png";
+        document.body.appendChild(image);
+    </script>
+    <br>
+    <a href="https://github.com/kurusunagisa/ComputerGraphics">ソースはこちら</a>
+</body>
