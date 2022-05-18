@@ -43,13 +43,13 @@
     //scene.add(axisHelper);
 
 
-    var max = 40;
+    var maxRaindrops = 40; //雨粒の最大数
     var boxList = [];
     var geometryList = [];
     var materialList = [];
 
     //雨粒
-    for(var i = 0; i < max;i++){
+    for(var i = 0; i < maxRaindrops;i++){
       geometryList[i] = new THREE.ConeGeometry(0.05, 0.08, 0.05);
       materialList[i] = new THREE.MeshPhongMaterial({ color: 0x0000ff });
       boxList[i] = new THREE.Mesh(geometryList[i], materialList[i]);
@@ -58,47 +58,48 @@
     }
 
     //窓
-    var geometry = new THREE.PlaneGeometry(2, 2, 3, 3);
-    var material = new THREE.MeshPhongMaterial( {color: 0xffff00, wireframe: true} );
-    var plane = new THREE.Mesh(geometry, material);
-    plane.position.set(0.5,0.5,0.5);
-    plane.rotation.y = Math.sin(45);
-    scene.add(plane);
+    var windowGeometry = new THREE.PlaneGeometry(2, 2, 2, 2);
+    var windowMaterial = new THREE.MeshPhongMaterial( {color: 0xffff00, wireframe: true} );
+    var window = new THREE.Mesh(windowGeometry, windowMaterial);
+    window.position.set(0.5,0.5,0.5);
+    window.rotation.y = Math.sin(45);
+    scene.add(window);
 
     //猫の頭
-    var geometry = new THREE.SphereGeometry(0.2);
-    var material = new THREE.MeshPhongMaterial( {color: 0xfefefe} );
-    var sphere1 = new THREE.Mesh(geometry, material);
-    sphere1.position.set(-0.5,0.5,0.53);
-    scene.add(sphere1);
+    var headGeometry = new THREE.SphereGeometry(0.2);
+    var headMaterial = new THREE.MeshPhongMaterial( {color: 0xfefefe} );
+    var head = new THREE.Mesh(headGeometry, headMaterial);
+    head.position.set(-0.5,0.5,0.53);
+    scene.add(head);
 
     //猫の体
-    var geometry = new THREE.SphereGeometry(0.3);
-    var material = new THREE.MeshPhongMaterial( {color: 0xfefefe} );
-    var sphere2 = new THREE.Mesh( geometry, material );
-    sphere2.position.set(-0.9,0.45,0.5);
-    scene.add(sphere2);
+    var bodyGeometry = new THREE.SphereGeometry(0.3);
+    var bodyMaterial = new THREE.MeshPhongMaterial( {color: 0xfefefe} );
+    var body = new THREE.Mesh( bodyGeometry, bodyMaterial );
+    body.position.set(-0.9,0.45,0.5);
+    scene.add(body);
 
     //猫の机
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.MeshPhongMaterial( {color: 0x6f4b3e} );
-    var table = new THREE.Mesh(geometry, material);
+    var bodyGeometry = new THREE.BoxGeometry(1, 1, 1);
+    var bodyMaterial = new THREE.MeshPhongMaterial( {color: 0x6f4b3e} );
+    var table = new THREE.Mesh(bodyGeometry, bodyMaterial);
     table.position.set(-0.9,-0.25,0.5);
     table.rotation.y = Math.sin(45);
     scene.add(table);
 
     //浮き輪
-    var geometry = new THREE.TorusGeometry(0.5, 0.25);
-    var material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
-    var torus = new THREE.Mesh(geometry, material);
+    var torusGeometry = new THREE.TorusGeometry(0.5, 0.25);
+    var torusMaterial = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
+    var torus = new THREE.Mesh(torusGeometry, torusMaterial);
     torus.position.set(0.2,0.45,-0.4);
-    scene.add( torus );
+    scene.add(torus);
 
 
     // 初回実行
     var update = function() {
       requestAnimationFrame(update);
-      for(var i = 0; i < max;i++){
+      //雨を降らせる
+      for(var i = 0; i < maxRaindrops;i++){
         boxList[i].position.y -= 0.2;
         if(boxList[i].position.y < -4){
           boxList[i].position.x = Math.random()*2;
@@ -106,6 +107,7 @@
           boxList[i].position.y = 4 - Math.random()*2;
         }
       }
+      //浮き輪をy軸を中心に回転させる
       torus.rotation.y += 0.01;
       renderer.render(scene, camera);
     };
