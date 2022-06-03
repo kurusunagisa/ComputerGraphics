@@ -3,7 +3,6 @@
     <meta charset="utf-8" />
     <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://unpkg.com/three@0.137.4/examples/js/loaders/FBXLoader.js"></script>
   </head>
 <body>
  <script>
@@ -40,7 +39,7 @@
         //scene.add(directionalLight1);
         // 平行光源2
         var directionalLight2 = new THREE.DirectionalLight(0xaaaaaa);
-        //directionalLight2.position.set(-10, -10, 10);
+        directionalLight2.position.set(-10, -10, 10);
         // シーンに追加
         scene.add(directionalLight2);
 
@@ -52,7 +51,7 @@
         scene.add(directionalLightM);
         // スポットライト
         const light = new THREE.DirectionalLight(0x888888);
-        light.position.set(3,4,0);
+        light.position.set(20,20,0);
         light.castShadow = true;
         scene.add(light);
         // helper
@@ -61,52 +60,65 @@
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
         scene.add(axisHelper);
 
-        // 平面を作成
-        var planeGeometry = new THREE.PlaneGeometry(10,10);
-        var planeMaterial = new THREE.MeshStandardMaterial({ color: 0xF8B400 });
-        var plane = new THREE.Mesh(planeGeometry,planeMaterial);
-        plane.receiveShadow = true; //影がつく
-        plane.rotation.set( -Math.PI/2, 0, 0 );
-        plane.position.set(0,-2,0);
-        //scene.add(plane);
+        var saraGeometry = new THREE.CircleGeometry(12,10000);
+        var saraMaterial = new THREE.MeshStandardMaterial({color: 0xfefe00});
+        var sara = new THREE.Mesh(saraGeometry,saraMaterial);
+        sara.rotation.x = -Math.PI / 2;
+        sara.receiveShadow = true;
 
-        var cylinderGeometry = new THREE.CylinderGeometry(3,3,7,40);
-        var cylinderMaterial = new THREE.MeshPhongMaterial({ color: 0xbec1c3});
-        var can = new THREE.Mesh(cylinderGeometry,cylinderMaterial);
-        can.rotation.set(0,0,0);
-        can.position.set(2,2,2);
-        scene.add(can);
+        var textureLoader = new THREE.TextureLoader();  
+        var texture = textureLoader.load("sara.png");
+        var mat = new THREE.MeshPhongMaterial();
+        mat.map = texture;
 
-        var pullGeometry = new THREE.CircleGeometry(1);
-        var pullMaterial = new THREE.MeshPhongMaterial({ color: 0x000000});
-        var pull = new THREE.Mesh(pullGeometry,pullMaterial);
-        pull.position.set(0,0,7);
 
-        const loader = new THREE.FBXLoader();
+        var garaGeometry = new THREE.CircleGeometry(11,10000);
+        var garaMaterial = new THREE.MeshStandardMaterial({color: 0xfefefe});
+        var gara = new THREE.Mesh(garaGeometry,mat);
+        gara.rotation.x = -Math.PI / 2;
+        gara.position.y = 0.01;
+        gara.receiveShadow = true;    
 
-        loader.load('miki.fbx', function(model){
-            scene.add(mode.scene);
-        });
+        var shariGeometry = new THREE.BoxGeometry(10,5,5);
+        var shariMaterial = new THREE.MeshPhongMaterial({color: 0xffffff});
+        var shari = new THREE.Mesh(shariGeometry,shariMaterial);
+        shari.castShadow = true;
+        shari.position.y = 2.5;
+        //scene.add(shari);
 
-        //const all = new THREE.Group();
-        //all.position.set(0,0,0);//全体グループの原点の位置
-        //scene.add(all); 
+        var netaGeometry = new THREE.BoxGeometry(14,2,6);
+        var netaMaterial = new THREE.MeshPhongMaterial({color:0xff0000});
+        var neta = new THREE.Mesh(netaGeometry,netaMaterial);
+        neta.position.set(0,6,0);
+        neta.castShadow = true;
+        //scene.add(neta);
+
+
+        const all = new THREE.Group();
+        all.add(sara);
+        all.add(gara);
+        all.add(shari);
+        all.add(neta);
+        all.position.set(5,0,5);//全体グループの原点の位置
+        scene.add(all); 
+
 
         update();
-
         // 毎フレーム時に実行されるループイベントです
         function update() {
           // レンダリング
           renderer.render(scene, camera);
           requestAnimationFrame(update);
 
+          all.rotation.y += 0.1;
+          all.position.x = 10*Math.cos(all.rotation.y);
+          all.position.z = 10*Math.sin(all.rotation.y);
 
           // ボール全体を回転させる
           // 全体を回転させる
           //all.rotation.x += 0.01;
           //all.rotation.y += 0.005;;
           //can.rotation.x += 0.1;
-          can.rotation.z += 0.1;
         }
       }
     </script>
