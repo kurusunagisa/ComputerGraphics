@@ -56,9 +56,9 @@
         scene.add(light);
         // helper
         const gridHelper = new THREE.GridHelper(2,10); // size, step
-        scene.add(gridHelper);
+        //scene.add(gridHelper);
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
-        scene.add(axisHelper);
+        //scene.add(axisHelper);
 
         var saraGeometry = new THREE.CircleGeometry(12,10000);
         var saraMaterial = new THREE.MeshStandardMaterial({color: 0xfefe00});
@@ -99,7 +99,7 @@
         all.add(gara);
         all.add(shari);
         all.add(neta);
-        all.position.set(5,0,5);//全体グループの原点の位置
+        all.position.set(6,0,6);//全体グループの原点の位置
         scene.add(all); 
 
 
@@ -111,8 +111,8 @@
           requestAnimationFrame(update);
 
           all.rotation.y += 0.1;
-          all.position.x = 10*Math.cos(all.rotation.y);
-          all.position.z = 10*Math.sin(all.rotation.y);
+          all.position.x = 10*Math.cos(all.rotation.y/10);
+          all.position.z = 10*Math.sin(all.rotation.y/10);
 
           // ボール全体を回転させる
           // 全体を回転させる
