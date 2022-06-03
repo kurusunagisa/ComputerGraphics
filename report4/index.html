@@ -111,8 +111,8 @@
           requestAnimationFrame(update);
 
           all.rotation.y += 0.05;
-          all.position.x = 10*Math.cos(all.rotation.y*2);
-          all.position.z = 10*Math.sin(all.rotation.y*2);
+          all.position.x = 10*Math.cos(all.rotation.y);
+          all.position.z = 10*Math.sin(all.rotation.y);
 
           // ボール全体を回転させる
           // 全体を回転させる
