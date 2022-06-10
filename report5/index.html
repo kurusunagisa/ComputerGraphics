@@ -119,11 +119,14 @@
         scene.add(toriiSprite);
 
                 // 平面を作成
-        var planeGeometry = new THREE.PlaneGeometry(100,100);
-        var plane = new THREE.Mesh(planeGeometry,jyariMat);
-        plane.rotation.set( -Math.PI/2, 0, 0 );
-        plane.position.set(0,5,0);
-        scene.add(plane);
+        for(let i = 0;i < 10;i++){
+            for(let j = 0;j < 10;j++){
+                var planeGeometry = new THREE.PlaneGeometry(10,10);
+                var plane = new THREE.Mesh(planeGeometry,jyariMat);
+                plane.position.set(i*10-50,3,j*10-50);
+                scene.add(plane);
+            }
+        }
 
 
 
