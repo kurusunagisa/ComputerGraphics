@@ -78,8 +78,13 @@
         var iwahadaMat = new THREE.MeshLambertMaterial();
         iwahadaMat.map = iwahada;
         iwahadaMat.bumpMap = iwahada;
-        iwahadaMat.bumpscale = 0.2;
+        iwahadaMat.bumpscale = 0.3;
 
+        var jyari = textureLoader.load("jyari.jpg");
+        var jyariMat = new THREE.MeshLambertMaterial();
+        jyariMat.map = jyari;
+        jyariMat.bumpMap = jyari;
+        jyariMat.bumpscale = 0.3;
         //桜の木を植える
         for(let i = 0;i < 10;i++){
             const sprite = new THREE.Sprite(sakuraMat);
@@ -109,9 +114,17 @@
 
         //鳥居を上に置く
         const toriiSprite = new THREE.Sprite(toriiMat);
-        toriiSprite.position.set(0,15,10);
+        toriiSprite.position.set(0,18,10);
         toriiSprite.scale.set(10.5,10.5,10.5);
         scene.add(toriiSprite);
+
+                // 平面を作成
+        var planeGeometry = new THREE.PlaneGeometry(100,100);
+        var plane = new THREE.Mesh(planeGeometry,jyari);
+        plane.rotation.set( -Math.PI/2, 0, 0 );
+        plane.position.set(0,5,0);
+        scene.add(plane);
+
 
 
         update();
