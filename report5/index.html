@@ -27,7 +27,7 @@
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
         // カメラの初期座標を設定
-        camera.position.set(0, 10, -50);
+        camera.position.set(0, 20, -50);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, document.body); 
@@ -114,7 +114,7 @@
 
         //鳥居を上に置く
         const toriiSprite = new THREE.Sprite(toriiMat);
-        toriiSprite.position.set(0,25,15);
+        toriiSprite.position.set(0,20,15);
         toriiSprite.scale.set(10.5,10.5,10.5);
         scene.add(toriiSprite);
 
