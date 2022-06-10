@@ -81,14 +81,23 @@
         iwahadaMat.bumpscale = 0.2;
 
         //桜の木を植える
-        for(let i = 0;i < 20;i++){
+        for(let i = 0;i < 10;i++){
             const sprite = new THREE.Sprite(sakuraMat);
-            sprite.position.x = 12*(Math.random() - 0.5);
+            sprite.position.x = 12*(Math.random()) + 3;
             //sprite.position.y = 10.5 * Math.random();
             sprite.position.z = 12*(Math.random() - 0.5);
             sprite.scale.set(10.5,10.5,10.5);
             scene.add(sprite);
         }
+        for(let i = 0;i < 10;i++){
+            const sprite = new THREE.Sprite(sakuraMat);
+            sprite.position.x = -12*(Math.random()) - 3;
+            //sprite.position.y = 10.5 * Math.random();
+            sprite.position.z = 12*(Math.random() - 0.5);
+            sprite.scale.set(10.5,10.5,10.5);
+            scene.add(sprite);
+        }
+
 
         //石段を作る
         for(let i = 0;i < 10;i++){
