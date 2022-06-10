@@ -84,8 +84,8 @@
         for(let i = 0;i < 20;i++){
             const sprite = new THREE.Sprite(sakuraMat);
             sprite.position.x = 12*(Math.random() - 0.5);
-            sprite.position.y = 10.5 * Math.random();
-
+            //sprite.position.y = 10.5 * Math.random();
+            sprite.position.x = 12*(Math.random() - 0.5);
             sprite.scale.set(10.5,10.5,10.5);
             scene.add(sprite);
         }
@@ -94,14 +94,14 @@
         for(let i = 0;i < 10;i++){
             var ishidanGeometry = new THREE.BoxGeometry(5,i+1,1);
             var ishidan = new THREE.Mesh(ishidanGeometry, iwahadaMat);
-            ishidan.position.set(1.5,10,i);
+            ishidan.position.set(1.5,i,i);
             scene.add(ishidan);
         }
         for(let i = 0;i < 10;i++){
             var ishidanGeometry = new THREE.BoxGeometry(5,i+1,1);
             var ishidan = new THREE.Mesh(ishidanGeometry, iwahadaMat);
             ishidan.rotation.set(Math.PI/2,0,0);
-            ishidan.position.set(1.5,-10,i);
+            ishidan.position.set(1.5,i/2,i);
             scene.add(ishidan);
         }
 
