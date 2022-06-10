@@ -5,8 +5,6 @@
     <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
   </head>
 <body>
-  <h2>回転寿司</h2>
-  本課題ではテクスチャを用いて回転する寿司を表現しました。皿にテクスチャを貼り、
  <script>
       // ページの読み込みを待つ
       window.addEventListener('DOMContentLoaded', init);
@@ -20,6 +18,8 @@
         var renderer = new THREE.WebGLRenderer();
         document.body.appendChild(renderer.domElement);
         renderer.setSize(width, height);
+
+        THREE.ImageUtils.crossOrigin = "*";
 
         renderer.shadowMap.enabled = true;
 
@@ -69,40 +69,43 @@
         sara.receiveShadow = true;
 
         var textureLoader = new THREE.TextureLoader();  
-        var texture = textureLoader.load("sara.png");
-        var mat = new THREE.MeshPhongMaterial();
-        mat.map = texture;
+        var sakura = textureLoader.load("sakura.png");
+        var sakuraMat = new THREE.SpriteMaterial({map: sakura,});
 
+        var toriiLoader = new THREE.TextureLoader();  
+        var torii = textureLoader.load("torii.png");
+        var toriiMat = new THREE.SpriteMaterial({map: torii,});
+        
+        var iwahada = textureLoader.load("iwahada.jpg");
+        var iwahadaMat = new THREE.MesLambartMaterial();
+        iwahadaMat.map = iwahada;
+        iwahadaMat.bumpMap = iwahada;
+        mat.bumpscale(0.2);
 
-        var garaGeometry = new THREE.CircleGeometry(11,10000);
-        var garaMaterial = new THREE.MeshStandardMaterial({color: 0xfefefe});
-        var gara = new THREE.Mesh(garaGeometry,mat);
-        gara.rotation.x = -Math.PI / 2;
-        gara.position.y = 0.01;
-        gara.receiveShadow = true;    
+        //桜の木を植える
+        for(let i = 0;i < 20;i++){
+            const sprite = new THREE.Sprite(sakuraMat);
+            sprite.position.x = 2*(Math.random() - 0.5);
+            sprite.position.y = 0.5 * Math.random();
+            sprite.position.z = 2 * (Math.random() - 0.5);
 
-        var shariGeometry = new THREE.BoxGeometry(10,5,5);
-        var shariMaterial = new THREE.MeshPhongMaterial({color: 0xffffff});
-        var shari = new THREE.Mesh(shariGeometry,shariMaterial);
-        shari.castShadow = true;
-        shari.position.y = 2.5;
-        //scene.add(shari);
+            sprite.scale.set(0.5,0.5,0.5);
+            scene.add(sprite);
+        }
 
-        var netaGeometry = new THREE.BoxGeometry(14,2,6);
-        var netaMaterial = new THREE.MeshPhongMaterial({color:0xff0000});
-        var neta = new THREE.Mesh(netaGeometry,netaMaterial);
-        neta.position.set(0,6,0);
-        neta.castShadow = true;
-        //scene.add(neta);
+        //石段を作る
+        for(let i = 0;i < 10;i++){
+            var ishidanGeometry = new THREE.BoxGeometry(5,1,1*(i+1));
+            var ishidan = new THREE.Mesh(ishidanGeometry, iwahadaMat);
+            ishidan.position.set(1.5,i,-5);
+            scene.add(ishidan);
+        }
 
-
-        const all = new THREE.Group();
-        all.add(sara);
-        all.add(gara);
-        all.add(shari);
-        all.add(neta);
-        all.position.set(6,0,6);//全体グループの原点の位置
-        scene.add(all); 
+        //鳥居を上に置く
+        const toriiSprite = new THREE.Sprite(toriiMat);
+        toriiSprite.position.set(1.5,10,5);
+        toriiSprite.scale.set(0.5,0.5,0.5);
+        scene.add(toriiSprite);
 
 
         update();
@@ -111,12 +114,6 @@
           // レンダリング
           renderer.render(scene, camera);
           requestAnimationFrame(update);
-
-          all.rotation.y += 0.05;
-          all.position.x = 10*Math.cos(all.rotation.y);
-          all.position.z = 10*Math.sin(all.rotation.y);
-          neta.rotation.y -=0.3;
-
           // ボール全体を回転させる
           // 全体を回転させる
           //all.rotation.x += 0.01;
