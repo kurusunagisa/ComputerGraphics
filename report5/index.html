@@ -19,8 +19,6 @@
         document.body.appendChild(renderer.domElement);
         renderer.setSize(width, height);
 
-        THREE.ImageUtils.crossOrigin = "*";
-
         renderer.shadowMap.enabled = true;
 
         // シーンを作成
@@ -77,7 +75,7 @@
         var toriiMat = new THREE.SpriteMaterial({map: torii,});
         
         var iwahada = textureLoader.load("iwahada.jpg");
-        var iwahadaMat = new THREE.MeshLambartMaterial();
+        var iwahadaMat = new THREE.MeshLambertMaterial();
         iwahadaMat.map = iwahada;
         iwahadaMat.bumpMap = iwahada;
         mat.bumpscale(0.2);
