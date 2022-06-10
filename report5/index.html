@@ -56,9 +56,9 @@
         scene.add(light);
         // helper
         const gridHelper = new THREE.GridHelper(2,10); // size, step
-        //scene.add(gridHelper);
+        scene.add(gridHelper);
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
-        //scene.add(axisHelper);
+        scene.add(axisHelper);
 
         var saraGeometry = new THREE.CircleGeometry(12,10000);
         var saraMaterial = new THREE.MeshStandardMaterial({color: 0xfefe00});
@@ -102,7 +102,7 @@
         //鳥居を上に置く
         const toriiSprite = new THREE.Sprite(toriiMat);
         toriiSprite.position.set(1.5,10,5);
-        toriiSprite.scale.set(20.5,20.5,20.5);
+        toriiSprite.scale.set(10.5,10.5,10.5);
         scene.add(toriiSprite);
 
 
