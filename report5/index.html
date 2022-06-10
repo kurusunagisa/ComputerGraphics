@@ -86,19 +86,19 @@
         jyariMat.bumpMap = jyari;
         jyariMat.bumpscale = 0.3;
         //桜の木を植える
-        for(let i = 0;i < 10;i++){
+        for(let i = 0;i < 60;i++){
             const sprite = new THREE.Sprite(sakuraMat);
             sprite.position.x = 12*(Math.random()) + 8;
             sprite.position.y = 5;            
-            sprite.position.z = 22*(Math.random() - 0.5);
+            sprite.position.z = 60*(Math.random() - 0.5)-30;
             sprite.scale.set(10.5,10.5,10.5);
             scene.add(sprite);
         }
-        for(let i = 0;i < 15;i++){
+        for(let i = 0;i < 60;i++){
             const sprite = new THREE.Sprite(sakuraMat);
             sprite.position.x = -12*(Math.random()) - 8;
             sprite.position.y = 5;
-            sprite.position.z = 22*(Math.random() - 0.5);
+            sprite.position.z = 60*(Math.random() - 0.5)-30;
             sprite.scale.set(10.5,10.5,10.5);
             scene.add(sprite);
         }
