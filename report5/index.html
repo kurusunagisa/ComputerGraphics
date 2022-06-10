@@ -101,7 +101,7 @@
 
         //石段を作る
         for(let i = 0;i < 10;i++){
-            var ishidanGeometry = new THREE.BoxGeometry(5,i+1,1);
+            var ishidanGeometry = new THREE.BoxGeometry(10,i+1,1);
             var ishidan = new THREE.Mesh(ishidanGeometry, iwahadaMat);
             ishidan.position.set(0,i*(3/4),i);
             scene.add(ishidan);
