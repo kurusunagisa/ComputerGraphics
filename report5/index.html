@@ -94,14 +94,7 @@
         for(let i = 0;i < 10;i++){
             var ishidanGeometry = new THREE.BoxGeometry(5,i+1,1);
             var ishidan = new THREE.Mesh(ishidanGeometry, iwahadaMat);
-            ishidan.position.set(1.5,i,i);
-            scene.add(ishidan);
-        }
-        for(let i = 0;i < 10;i++){
-            var ishidanGeometry = new THREE.BoxGeometry(5,i+1,1);
-            var ishidan = new THREE.Mesh(ishidanGeometry, iwahadaMat);
-            ishidan.rotation.set(Math.PI/2,0,0);
-            ishidan.position.set(1.5,i/2,i);
+            ishidan.position.set(1.5,i*(3/4),i);
             scene.add(ishidan);
         }
 
