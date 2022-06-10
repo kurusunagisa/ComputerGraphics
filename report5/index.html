@@ -78,7 +78,7 @@
         var iwahadaMat = new THREE.MeshLambertMaterial();
         iwahadaMat.map = iwahada;
         iwahadaMat.bumpMap = iwahada;
-        mat.bumpscale(0.2);
+        iwahadaMat.bumpscale = 0.2;
 
         //桜の木を植える
         for(let i = 0;i < 20;i++){
