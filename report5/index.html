@@ -83,9 +83,9 @@
         //桜の木を植える
         for(let i = 0;i < 20;i++){
             const sprite = new THREE.Sprite(sakuraMat);
-            sprite.position.x = 2*(Math.random() - 0.5);
-            sprite.position.y = 0.5 * Math.random();
-            sprite.position.z = 2 * (Math.random() - 0.5);
+            sprite.position.x = 12*(Math.random() - 0.5);
+            sprite.position.y = 10.5 * Math.random();
+            sprite.position.z = 12 * (Math.random() - 0.5);
 
             sprite.scale.set(10.5,10.5,10.5);
             scene.add(sprite);
@@ -95,7 +95,7 @@
         for(let i = 0;i < 10;i++){
             var ishidanGeometry = new THREE.BoxGeometry(5,i+1,1);
             var ishidan = new THREE.Mesh(ishidanGeometry, iwahadaMat);
-            ishidan.position.set(1.5,i,-5);
+            ishidan.position.set(1.5,1,i);
             scene.add(ishidan);
         }
 
