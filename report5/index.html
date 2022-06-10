@@ -27,7 +27,7 @@
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
         // カメラの初期座標を設定
-        camera.position.set(0, 0, -50);
+        camera.position.set(0, 10, -50);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, document.body); 
@@ -85,22 +85,22 @@
             const sprite = new THREE.Sprite(sakuraMat);
             sprite.position.x = 12*(Math.random()) + 8;
             sprite.position.y = 5;            
-            sprite.position.z = 12*(Math.random() - 0.5);
+            sprite.position.z = 22*(Math.random() - 0.5);
             sprite.scale.set(10.5,10.5,10.5);
             scene.add(sprite);
         }
-        for(let i = 0;i < 10;i++){
+        for(let i = 0;i < 15;i++){
             const sprite = new THREE.Sprite(sakuraMat);
             sprite.position.x = -12*(Math.random()) - 8;
-            //sprite.position.y = 10.5 * Math.random();
-            sprite.position.z = 12*(Math.random() - 0.5);
+            sprite.position.y = 5;
+            sprite.position.z = 22*(Math.random() - 0.5);
             sprite.scale.set(10.5,10.5,10.5);
             scene.add(sprite);
         }
 
 
         //石段を作る
-        for(let i = 0;i < 10;i++){
+        for(let i = 0;i < 15;i++){
             var ishidanGeometry = new THREE.BoxGeometry(10,i+1,1);
             var ishidan = new THREE.Mesh(ishidanGeometry, iwahadaMat);
             ishidan.position.set(0,i*(3/4),i);
@@ -109,7 +109,7 @@
 
         //鳥居を上に置く
         const toriiSprite = new THREE.Sprite(toriiMat);
-        toriiSprite.position.set(0,20,10);
+        toriiSprite.position.set(0,15,10);
         toriiSprite.scale.set(10.5,10.5,10.5);
         scene.add(toriiSprite);
 
