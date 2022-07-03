@@ -101,6 +101,7 @@
         function update() {
           for(var i = 0; i < maxRaindrops;i++){
             boxList[i].position.y -= 0.2;
+            boxList[i].position.x += sin(boxList[i].position.y);
             if(boxList[i].position.y < -20){
               boxList[i].position.x = Math.random()*100 - 50;
               boxList[i].position.z = Math.random()*100 - 50;
