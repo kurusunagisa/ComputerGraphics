@@ -91,6 +91,7 @@
           
           boxList[i] = new THREE.Mesh(geometryList[i], nijiMat);
           boxList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
+          boxList[i].rotation.set(Math.random(),Math.random,0);
           scene.add(boxList[i]);   // シーンに追加
         }
         
@@ -101,7 +102,8 @@
         function update() {
           for(var i = 0; i < maxRaindrops;i++){
             boxList[i].position.y -= 0.2;
-            boxList[i].position.x += sin(boxList[i].position.y);
+            boxList[i].position.x += Math.sin(boxList[i].position.y);
+            boxList[i].rotation.x +=0.1;
             if(boxList[i].position.y < -20){
               boxList[i].position.x = Math.random()*100 - 50;
               boxList[i].position.z = Math.random()*100 - 50;
