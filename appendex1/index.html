@@ -67,7 +67,7 @@
 
         var textureLoader = new THREE.TextureLoader();  
         var niji = textureLoader.load("niji.jpg");
-        var nijiMat = new THREE.MeshLambertMaterial();
+        var nijiMat = new THREE.MeshStandardMaterial();
         nijiMat.map = niji;
         nijiMat.bumpMap = niji;
         nijiMat.bumpscale = 0.3;
