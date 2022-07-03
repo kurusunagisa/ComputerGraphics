@@ -64,8 +64,8 @@
         var maxRaindrops = 200; //雨粒の最大数
         var boxList = [];
         var geometryList = [];
-        var materialList = [];
 
+        var textureLoader = new THREE.TextureLoader();  
         var niji = textureLoader.load("niji.jpg");
         var nijiMat = new THREE.MeshLambertMaterial();
         nijiMat.map = niji;
