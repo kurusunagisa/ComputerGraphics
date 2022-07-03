@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+  </head>
+  <body>
+    <script>
+      // ページの読み込みを待つ
+      window.addEventListener('DOMContentLoaded', init);
+
+      function init() {
+        // サイズを指定
+        const width = 900;
+        const height = 700;
+
+        // レンダラーを作成
+        var renderer = new THREE.WebGLRenderer();
+        document.body.appendChild(renderer.domElement);
+        renderer.setSize(width, height);
+
+        renderer.shadowMap.enabled = true;
+
+        // シーンを作成
+        const scene = new THREE.Scene();
+
+        // カメラを作成
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        // カメラの初期座標を設定
+        camera.position.set(0, 15, -80);
+
+        // カメラコントローラーを作成
+        const controls = new THREE.OrbitControls(camera, document.body); 
+        
+        // 平行光源1
+        var directionalLight1 = new THREE.DirectionalLight(0xffffff);
+        directionalLight1.position.set(10, 10, 10);
+        // シーンに追加
+        //scene.add(directionalLight1);
+        // 平行光源2
+        var directionalLight2 = new THREE.DirectionalLight(0xaaaaaa);
+        directionalLight2.position.set(-10, -10, 10);
+        // シーンに追加
+        scene.add(directionalLight2);
+
+        // 平行光源(色、強さ）主光源
+        var directionalLightM = new THREE.DirectionalLight(0xffffff,0.3);
+        directionalLightM.position.set(0, 10, -5);
+        directionalLightM.castShadow = true; 
+        //シーンに追加
+        scene.add(directionalLightM);
+        // スポットライト
+        const light = new THREE.DirectionalLight(0x888888);
+        light.position.set(20,20,0);
+        light.castShadow = true;
+        scene.add(light);
+        // helper
+        const gridHelper = new THREE.GridHelper(2,10); // size, step
+        scene.add(gridHelper);
+        const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
+        scene.add(axisHelper);
+
+
+        var maxRaindrops = 200; //雨粒の最大数
+        var boxList = [];
+        var geometryList = [];
+        var materialList = [];
+
+        var niji = textureLoader.load("niji.jpg");
+        var nijiMat = new THREE.MeshLambertMaterial();
+        nijiMat.map = niji;
+        nijiMat.bumpMap = niji;
+        nijiMat.bumpscale = 0.3;
+        //複雑な形の図形
+        for(var i = 0; i < maxRaindrops;i++){
+          let zukei = Math.floor(Math.random()*10);
+          switch(zukei % 4){
+            case 0:
+              geometryList[i] = new THREE.TetrahedronGeometry(1.0);
+              break;
+            case 1:
+              geometryList[i] = new THREE.OctahedronGeometry(1.0);
+              break;
+            case 2:
+              geometryList[i] = new THREE.IcosahedronGeometry(1.0);
+              break;
+            case 3:
+              geometryList[i] = new THREE.SphereGeometry(1.0);
+              break;
+          }
+          
+          boxList[i] = new THREE.Mesh(geometryList[i], nijiMat);
+          boxList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
+          scene.add(boxList[i]);   // シーンに追加
+        }
+        
+
+
+        update();
+        // 毎フレーム時に実行されるループイベントです
+        function update() {
+          for(var i = 0; i < maxRaindrops;i++){
+            boxList[i].position.y -= 0.2;
+            if(boxList[i].position.y < -20){
+              boxList[i].position.x = Math.random()*100 - 50;
+              boxList[i].position.z = Math.random()*100 - 50;
+              boxList[i].position.y = 20 - Math.random()*20;
+            }
+          }
+          // レンダリング
+          renderer.render(scene, camera);
+          requestAnimationFrame(update);
+        }
+      }
+    </script>
+  </body>
+</html>

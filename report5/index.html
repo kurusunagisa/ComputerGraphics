@@ -27,7 +27,7 @@
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
         // カメラの初期座標を設定
-        camera.position.set(0, 10, -80);
+        camera.position.set(0, 15, -80);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, document.body); 
@@ -123,7 +123,7 @@
         toriiSprite.scale.set(10.5,10.5,10.5);
         scene.add(toriiSprite);
 
-                // 平面を作成
+        // 平面を作成
         for(let i = 0;i < 10;i++){
             for(let j = 0;j < 10;j++){
                 var planeGeometry = new THREE.PlaneGeometry(10,10);
