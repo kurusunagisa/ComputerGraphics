@@ -102,13 +102,13 @@
         function update() {
           for(var i = 0; i < maxRaindrops;i++){
             boxList[i].position.y -= 0.2;
-            boxList[i].position.x += Math.sin(boxList[i].position.y);
+            boxList[i].position.x += 0.1 * Math.sin(boxList[i].position.y);
             boxList[i].rotation.x +=0.1;
             boxList[i].rotation.y +=0.1;
             if(boxList[i].position.y < -20){
               boxList[i].position.x = Math.random()*100 - 50;
               boxList[i].position.z = Math.random()*100 - 50;
-              boxList[i].position.y = 20 - Math.random()*20;
+              boxList[i].position.y = 40 - Math.random()*20;
             }
           }
           // レンダリング
