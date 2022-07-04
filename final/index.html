@@ -3,6 +3,7 @@
     <meta charset="utf-8" />
     <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.126.1/examples/js/loaders/FBXLoader.js"></script>
   </head>
   <body>
     <h1>最終課題</h1><br>
@@ -61,44 +62,12 @@
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
         scene.add(axisHelper);
 
-        for(let i = 0;i < 24;i++){
-          var Geometry = new THREE.BoxGeometry(14,2,2);
-          var Material = new THREE.MeshPhongMaterial({color:0xffffff});
-          var key = new THREE.Mesh(Geometry, Material);
-          key.position.set(0,0,i*2.1);
-          key.castShadow = true;
-          scene.add(key);
-        }
-
-        let i = 0;
-        let flag = false;
-        while(i < 24){
-          var Geometry = new THREE.BoxGeometry(8,2,1.7);
-          var Material = new THREE.MeshPhongMaterial({color:0x000000});
-          var key = new THREE.Mesh(Geometry, Material);
-          key.position.set(3,0.5,i*2.1+1);
-          key.castShadow = true;
-          scene.add(key);
-
-          console.log(i);
-          console.log(flag);
-          if(i % 3 == 0){
-            i++;
-            if(flag == true){
-              var Geometry = new THREE.BoxGeometry(8,2,1.7);
-              var Material = new THREE.MeshPhongMaterial({color:0x000000});
-              var key = new THREE.Mesh(Geometry, Material);
-              key.position.set(3,0.5,i*2.1+1);
-              key.castShadow = true;
-              scene.add(key);
-              i++;
-              flag = false;
-            }else{
-              flag = true;
-            }
-          }
-          i++;
-        }
+        const loader = new THREE.FBXLoader();
+    
+        loader.load( 'buranko.fbx', function ( object ) {
+            object.scale.set(1, 1, 1);
+            scene.add( object );
+        });
 
         update();
         // 毎フレーム時に実行されるループイベントです
