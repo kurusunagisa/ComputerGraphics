@@ -3,11 +3,13 @@
     <meta charset="utf-8" />
     <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://unpkg.com/three@0.126.1/examples/js/loaders/FBXLoader.js"></script>
+    <!--<script src="https://unpkg.com/three@0.126.1/examples/js/loaders/FBXLoader.js"></script>-->
   </head>
   <body>
     <h1>最終課題</h1><br>
-    <script>
+    <script type="module">
+      import { FBXLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/FBXLoader.js';
+ 
       // ページの読み込みを待つ
       window.addEventListener('DOMContentLoaded', init);
 
@@ -62,7 +64,8 @@
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
         scene.add(axisHelper);
 
-        const loader = new THREE.FBXLoader();
+        //console.log(FBXLoader());
+        const loader = new FBXLoader();
     
         loader.load( 'buranko.fbx', function ( object ) {
             object.scale.set(1, 1, 1);
