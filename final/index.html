@@ -3,13 +3,10 @@
     <meta charset="utf-8" />
     <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
-    <!--<script src="https://unpkg.com/three@0.126.1/examples/js/loaders/FBXLoader.js"></script>-->
   </head>
   <body>
     <h1>最終課題</h1><br>
-    <script type="module">
-      import { FBXLoader } from 'https://unpkg.com/three@0.137.4/examples/jsm/loaders/FBXLoader.js';
- 
+    <script>
       // ページの読み込みを待つ
       window.addEventListener('DOMContentLoaded', init);
 
@@ -64,13 +61,65 @@
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
         scene.add(axisHelper);
 
-        //console.log(FBXLoader());
-        const loader = new FBXLoader();
-    
-        loader.load( 'suberidai.fbx', function ( object ) {
-            object.scale.set(1, 1, 1);
-            scene.add( object );
-        });
+        for(let i = 0;i < 24;i++){
+          var Geometry = new THREE.BoxGeometry(14,2,2);
+          var Material = new THREE.MeshPhongMaterial({color:0xffffff});
+          var key = new THREE.Mesh(Geometry, Material);
+          key.position.set(0,0,i*2.1);
+          key.castShadow = true;
+          scene.add(key);
+        }
+
+        for(let i = 0; i < 24; i+=7){
+          var Geometry = new THREE.BoxGeometry(8,2,1.7);
+          var Material = new THREE.MeshPhongMaterial({color:0x000000});
+          var key = new THREE.Mesh(Geometry, Material);
+          key.position.set(3,0.5,i*2.1+1);
+          key.castShadow = true;
+          scene.add(key);
+          var Geometry = new THREE.BoxGeometry(8,2,1.7);
+          var Material = new THREE.MeshPhongMaterial({color:0x000000});
+          var key = new THREE.Mesh(Geometry, Material);
+          key.position.set(3,0.5,i*2.1+1+2);
+          key.castShadow = true;
+          scene.add(key);
+
+          var Geometry = new THREE.BoxGeometry(8,2,1.7);
+          var Material = new THREE.MeshPhongMaterial({color:0x000000});
+          var key = new THREE.Mesh(Geometry, Material);
+          key.position.set(3,0.5,i*2.1+1+6);
+          key.castShadow = true;
+          scene.add(key);
+
+          var Geometry = new THREE.BoxGeometry(8,2,1.7);
+          var Material = new THREE.MeshPhongMaterial({color:0x000000});
+          var key = new THREE.Mesh(Geometry, Material);
+          key.position.set(3,0.5,i*2.1+1+8);
+          key.castShadow = true;
+          scene.add(key);
+
+          var Geometry = new THREE.BoxGeometry(8,2,1.7);
+          var Material = new THREE.MeshPhongMaterial({color:0x000000});
+          var key = new THREE.Mesh(Geometry, Material);
+          key.position.set(3,0.5,i*2.1+1+10);
+          key.castShadow = true;
+          scene.add(key);
+        }
+
+        var cubeGeometry = new THREE.cubeGeometry(1);
+        var textureLoader = new THREE.TextureLoader();  
+        var metal = textureLoader.load("metal.jpeg");
+        var metalMat = new THREE.MeshStandardMaterial();
+        metalMat.map = niji;
+        metalMat.bumpMap = niji;
+        metalMat.bumpscale = 0.2;
+
+        var bowlList = [];
+        for(let i = 0;i < 20;i++){
+          bowlList[i] = new THREE.Mesh(cubeGeometry, metalMat);
+          bowlList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
+          scene.add(boxList[i]);   // シーンに追加
+        }
 
         update();
         // 毎フレーム時に実行されるループイベントです
