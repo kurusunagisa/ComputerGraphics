@@ -61,51 +61,41 @@
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
         scene.add(axisHelper);
 
+        //白鍵
         for(let i = 0;i < 24;i++){
           var Geometry = new THREE.BoxGeometry(14,2,2);
           var Material = new THREE.MeshPhongMaterial({color:0xffffff});
           var key = new THREE.Mesh(Geometry, Material);
           key.position.set(0,0,i*2.1);
-          key.castShadow = true;
           scene.add(key);
         }
 
+        //黒鍵
+        var Geometry = new THREE.BoxGeometry(8,2,1.7);
+        var Material = new THREE.MeshPhongMaterial({color:0x000000});
         for(let i = 0; i < 24; i+=7){
-          var Geometry = new THREE.BoxGeometry(8,2,1.7);
-          var Material = new THREE.MeshPhongMaterial({color:0x000000});
           var key = new THREE.Mesh(Geometry, Material);
           key.position.set(3,0.5,i*2.1+1);
-          key.castShadow = true;
           scene.add(key);
-          var Geometry = new THREE.BoxGeometry(8,2,1.7);
-          var Material = new THREE.MeshPhongMaterial({color:0x000000});
+
           var key = new THREE.Mesh(Geometry, Material);
           key.position.set(3,0.5,i*2.1+1+2);
-          key.castShadow = true;
           scene.add(key);
 
-          var Geometry = new THREE.BoxGeometry(8,2,1.7);
-          var Material = new THREE.MeshPhongMaterial({color:0x000000});
           var key = new THREE.Mesh(Geometry, Material);
           key.position.set(3,0.5,i*2.1+1+6);
-          key.castShadow = true;
           scene.add(key);
 
-          var Geometry = new THREE.BoxGeometry(8,2,1.7);
-          var Material = new THREE.MeshPhongMaterial({color:0x000000});
           var key = new THREE.Mesh(Geometry, Material);
           key.position.set(3,0.5,i*2.1+1+8);
-          key.castShadow = true;
           scene.add(key);
 
-          var Geometry = new THREE.BoxGeometry(8,2,1.7);
-          var Material = new THREE.MeshPhongMaterial({color:0x000000});
           var key = new THREE.Mesh(Geometry, Material);
           key.position.set(3,0.5,i*2.1+1+10);
-          key.castShadow = true;
           scene.add(key);
         }
 
+        //ボール
         var cubeGeometry = new THREE.cubeGeometry(1);
         var textureLoader = new THREE.TextureLoader();  
         var metal = textureLoader.load("metal.jpeg");
@@ -113,12 +103,11 @@
         metalMat.map = niji;
         metalMat.bumpMap = niji;
         metalMat.bumpscale = 0.2;
-
-        var bowlList = [];
+        var bollList = [];
         for(let i = 0;i < 20;i++){
-          bowlList[i] = new THREE.Mesh(cubeGeometry, metalMat);
-          bowlList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
-          scene.add(boxList[i]);   // シーンに追加
+          boooList[i] = new THREE.Mesh(cubeGeometry, metalMat);
+          bollList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
+          scene.add(bollList[i]);   // シーンに追加
         }
 
         update();
