@@ -5,8 +5,7 @@
     <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
   </head>
   <body>
-    <h1>おまけ1 虹の結晶</h1><br>
-    虹色に光る複雑な形をした結晶が揺れながら落ちてくる様子を表現しました。正四面体、正八面体、正十二面体、球の4つを結晶と見立てて、虹のテクスチャにバンプマッピングをすることで表面のゴツゴツ感を出しました。また、揺れ動く感じを出すために正弦波を用いてx座標を移動させています。
+    <h1>最終課題</h1><br>
     <script>
       // ページの読み込みを待つ
       window.addEventListener('DOMContentLoaded', init);
@@ -58,61 +57,52 @@
         scene.add(light);
         // helper
         const gridHelper = new THREE.GridHelper(2,10); // size, step
-        //scene.add(gridHelper);
+        scene.add(gridHelper);
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
-        //scene.add(axisHelper);
+        scene.add(axisHelper);
 
-
-        var maxRaindrops = 200; //雨粒の最大数
-        var boxList = [];
-        var geometryList = [];
-
-        var textureLoader = new THREE.TextureLoader();  
-        var niji = textureLoader.load("niji.jpg");
-        var nijiMat = new THREE.MeshStandardMaterial();
-        nijiMat.map = niji;
-        nijiMat.bumpMap = niji;
-        nijiMat.bumpscale = 0.3;
-        //複雑な形の図形
-        for(var i = 0; i < maxRaindrops;i++){
-          let zukei = Math.floor(Math.random()*10);
-          switch(zukei % 4){
-            case 0:
-              geometryList[i] = new THREE.TetrahedronGeometry(1.0);
-              break;
-            case 1:
-              geometryList[i] = new THREE.OctahedronGeometry(1.0);
-              break;
-            case 2:
-              geometryList[i] = new THREE.IcosahedronGeometry(1.0);
-              break;
-            case 3:
-              geometryList[i] = new THREE.SphereGeometry(1.0);
-              break;
-          }
-          
-          boxList[i] = new THREE.Mesh(geometryList[i], nijiMat);
-          boxList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
-          boxList[i].rotation.set(Math.random(),Math.random(),0);
-          scene.add(boxList[i]);   // シーンに追加
+        for(let i = 0;i < 24;i++){
+          var Geometry = new THREE.BoxGeometry(14,2,2);
+          var Material = new THREE.MeshPhongMaterial({color:0xffffff});
+          var key = new THREE.Mesh(Geometry, Material);
+          key.position.set(0,0,i*2.1);
+          key.castShadow = true;
+          scene.add(key);
         }
-        
 
+        let i = 0;
+        let flag = false;
+        while(i < 24){
+          var Geometry = new THREE.BoxGeometry(8,2,1.7);
+          var Material = new THREE.MeshPhongMaterial({color:0x000000});
+          var key = new THREE.Mesh(Geometry, Material);
+          key.position.set(3,0.5,i*2.1+1);
+          key.castShadow = true;
+          scene.add(key);
+
+          console.log(i);
+          console.log(flag);
+          if(i % 3 == 0){
+            i++;
+            if(flag == true){
+              var Geometry = new THREE.BoxGeometry(8,2,1.7);
+              var Material = new THREE.MeshPhongMaterial({color:0x000000});
+              var key = new THREE.Mesh(Geometry, Material);
+              key.position.set(3,0.5,i*2.1+1);
+              key.castShadow = true;
+              scene.add(key);
+              i++;
+              flag = false;
+            }else{
+              flag = true;
+            }
+          }
+          i++;
+        }
 
         update();
         // 毎フレーム時に実行されるループイベントです
         function update() {
-          for(var i = 0; i < maxRaindrops;i++){
-            boxList[i].position.y -= 0.2;
-            boxList[i].position.x += 0.1 * Math.sin(boxList[i].position.y);
-            boxList[i].rotation.x +=0.1;
-            boxList[i].rotation.y +=0.1;
-            if(boxList[i].position.y < -20){
-              boxList[i].position.x = Math.random()*100 - 50;
-              boxList[i].position.z = Math.random()*100 - 50;
-              boxList[i].position.y = 40 - Math.random()*20;
-            }
-          }
           // レンダリング
           renderer.render(scene, camera);
           requestAnimationFrame(update);
