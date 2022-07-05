@@ -64,8 +64,8 @@
         var pianoGeometry = new THREE.BoxGeometry(14,60,80);
         //var pianoMaterial = new THREE.MeshPhongMaterial({color:0xffffff});
         var textureLoader = new THREE.TextureLoader();  
-        var piano = textureLoader.load("piano_mat.jpeg");
-        var pianoMaterial = new THREE.MeshStandardMaterial();
+        var pianoTexture = textureLoader.load("piano_mat.jpeg");
+        var pianoMaterial = new THREE.MeshStandardMaterial({map: pianoTexture});
         var piano = new THREE.Mesh(pianoGeometry,pianoMaterial);
         piano.position.set(14,-10,35);
         scene.add(piano);
