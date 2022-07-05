@@ -96,7 +96,7 @@
         }
 
         //ボール
-        var cubeGeometry = new THREE.SphereGeometry(1);
+        var sphereGeometry = new THREE.SphereGeometry(1);
         var textureLoader = new THREE.TextureLoader();  
         var metal = textureLoader.load("metal.jpeg");
         var metalMat = new THREE.MeshStandardMaterial();
@@ -105,7 +105,7 @@
         metalMat.bumpscale = 0.2;
         var bollList = [];
         for(let i = 0;i < 20;i++){
-          bollList[i] = new THREE.Mesh(SphereGeometry, metalMat);
+          bollList[i] = new THREE.Mesh(sphereGeometry, metalMat);
           bollList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
           scene.add(bollList[i]);   // シーンに追加
         }
