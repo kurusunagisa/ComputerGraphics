@@ -28,7 +28,7 @@
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
         // カメラの初期座標を設定
-        camera.position.set(0, 15, -80);
+        camera.position.set(-50, 50, -60);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, document.body); 
@@ -52,7 +52,7 @@
         scene.add(directionalLightM);
         // スポットライト
         const light = new THREE.DirectionalLight(0x888888);
-        light.position.set(20,20,0);
+        light.position.set(-20,30,30);
         light.castShadow = true;
         scene.add(light);
         // helper
@@ -61,58 +61,148 @@
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
         scene.add(axisHelper);
 
+        var pianoGeometry = new THREE.BoxGeometry(14,60,80);
+        //var pianoMaterial = new THREE.MeshPhongMaterial({color:0xffffff});
+        var textureLoader = new THREE.TextureLoader();  
+        var piano = textureLoader.load("piano_mat.jpeg");
+        var pianoMaterial = new THREE.MeshStandardMaterial();
+        var piano = new THREE.Mesh(pianoGeometry,pianoMaterial);
+        piano.position.set(14,-10,35);
+        scene.add(piano);
+
+        var sideGeometry = new THREE.BoxGeometry(16,6,3);
+        var leftSide = new THREE.Mesh(sideGeometry,pianoMaterial);
+        leftSide.position.set(0,0,-3);
+        scene.add(leftSide);
+
+        var rightSide = new THREE.Mesh(sideGeometry,pianoMaterial);
+        rightSide.position.set(0,0,72);
+        scene.add(rightSide);
+
+        var regGeometry = new THREE.BoxGeometry(3,38,3);
+        var leftReg = new THREE.Mesh(regGeometry,pianoMaterial);
+        leftReg.position.set(-5.5,-21,-3);
+        scene.add(leftReg);
+
+        var rightReg = new THREE.Mesh(regGeometry,pianoMaterial);
+        rightReg.position.set(-5.5,-21,72);
+        scene.add(rightReg);
+
+        var barGeometry = new THREE.BoxGeometry(3,3,75);
+        var bar = new THREE.Mesh(barGeometry,pianoMaterial);
+        bar.position.set(-6,-2,35);
+        scene.add(bar);
+
+        var fumenGeometry = new THREE.BoxGeometry(1,10,70);
+        var fumen = new THREE.Mesh(fumenGeometry,pianoMaterial);
+        fumen.position.set(7,7,35);
+        scene.add(fumen);
+
+        let maxKey = 34;
+        let whiteKey = [];
         //白鍵
-        for(let i = 0;i < 24;i++){
-          var Geometry = new THREE.BoxGeometry(14,2,2);
-          var Material = new THREE.MeshPhongMaterial({color:0xffffff});
-          var key = new THREE.Mesh(Geometry, Material);
-          key.position.set(0,0,i*2.1);
-          scene.add(key);
+        var Geometry = new THREE.BoxGeometry(14,2,2);
+        var Material = new THREE.MeshPhongMaterial({color:0xffffff});
+        for(let i = 0;i < maxKey;i++){
+          whiteKey[i] = new THREE.Mesh(Geometry, Material);
+          whiteKey[i].position.set(0,0,i*2.1);
+          whiteKey[i].geometry.computeBoundingBox();
+          scene.add(whiteKey[i]);
         }
 
+
+        let blackKey = [];
         //黒鍵
         var Geometry = new THREE.BoxGeometry(8,2,1.7);
         var Material = new THREE.MeshPhongMaterial({color:0x000000});
-        for(let i = 0; i < 24; i+=7){
-          var key = new THREE.Mesh(Geometry, Material);
-          key.position.set(3,0.5,i*2.1+1);
-          scene.add(key);
+        for(let i = 0; i < maxKey; i+=7){
+          blackKey[i] = new THREE.Mesh(Geometry, Material);
+          blackKey[i].position.set(3,1,i*2.1+1);
+          blackKey[i].geometry.computeBoundingBox();
+          scene.add(blackKey[i]);
 
-          var key = new THREE.Mesh(Geometry, Material);
-          key.position.set(3,0.5,i*2.1+1+2);
-          scene.add(key);
+          blackKey[i+1] = new THREE.Mesh(Geometry, Material);
+          blackKey[i+1].position.set(3,1,i*2.1+1+2);
+          blackKey[i+1].geometry.computeBoundingBox();
+          scene.add(blackKey[i+1]);
 
-          var key = new THREE.Mesh(Geometry, Material);
-          key.position.set(3,0.5,i*2.1+1+6);
-          scene.add(key);
+          blackKey[i+2] = new THREE.Mesh(Geometry, Material);
+          blackKey[i+2].position.set(3,1,i*2.1+1+6);
+          blackKey[i+2].geometry.computeBoundingBox();
+          scene.add(blackKey[i+2]);
 
-          var key = new THREE.Mesh(Geometry, Material);
-          key.position.set(3,0.5,i*2.1+1+8);
-          scene.add(key);
+          blackKey[i+3] = new THREE.Mesh(Geometry, Material);
+          blackKey[i+3].position.set(3,1,i*2.1+1+8);
+          blackKey[i+3].geometry.computeBoundingBox();
+          scene.add(blackKey[i+3]);
 
-          var key = new THREE.Mesh(Geometry, Material);
-          key.position.set(3,0.5,i*2.1+1+10);
-          scene.add(key);
+          blackKey[i+4] = new THREE.Mesh(Geometry, Material);
+          blackKey[i+4].position.set(3,1,i*2.1+1+10);
+          blackKey[i+4].geometry.computeBoundingBox();
+          scene.add(blackKey[i+4]);
         }
 
         //ボール
         var sphereGeometry = new THREE.SphereGeometry(1);
-        var textureLoader = new THREE.TextureLoader();  
+        /*var textureLoader = new THREE.TextureLoader();  
         var metal = textureLoader.load("metal.jpeg");
         var metalMat = new THREE.MeshStandardMaterial();
         metalMat.map = metal;
         metalMat.bumpMap = metal;
-        metalMat.bumpscale = 0.2;
-        var bollList = [];
-        for(let i = 0;i < 20;i++){
-          bollList[i] = new THREE.Mesh(sphereGeometry, metalMat);
-          bollList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
-          scene.add(bollList[i]);   // シーンに追加
+        metalMat.bumpscale = 0.2;*/
+        var metalMat = new THREE.MeshPhongMaterial({color:0xff0000});
+        var ballList = [];
+
+        var maxBall = 30;
+        for(let i = 0;i < maxBall;i++){
+          ballList[i] = new THREE.Mesh(sphereGeometry, metalMat);
+          ballList[i].position.set(Math.random()*10 - 5,i+5,Math.random()*70); //位置を指定
+          ballList[i].geometry.computeBoundingBox();
+          scene.add(ballList[i]);   // シーンに追加
         }
 
+        var count = 0;
         update();
         // 毎フレーム時に実行されるループイベントです
         function update() {
+          //ボール
+          count++;
+          for(let i = 0;i < maxBall;i++){
+            ballList[i].position.y -=0.1;
+            ballList[i].geometry.computeBoundingBox();
+            //白鍵
+            for(let j = 0;j < maxKey;j++){
+              let box3Ball = new THREE.Box3().setFromObject(ballList[i]);
+              let box3Key = new THREE.Box3().setFromObject(whiteKey[j]);
+              let result = box3Ball.intersectsBox(box3Key);
+              if(result){
+                //白鍵を気持ちだけ下に落として該当のボールは新しく生成する
+                whiteKey[j].position.y = -1;
+                ballList[i].position.set(Math.random()*10 - 5,i+5,Math.random()*70); //位置を指定
+              }
+              if(count % 20 == 0 && whiteKey[j].position.y < 0){
+                whiteKey[j].position.y = 0;
+              }
+            }
+            for(let j = 0; j < maxKey;j++){
+              if(blackKey[j] != null){
+                let box3Ball = new THREE.Box3().setFromObject(ballList[i]);
+                let box3Key = new THREE.Box3().setFromObject(blackKey[j]);
+                let result = box3Ball.intersectsBox(box3Key);
+                if(result){
+                  //黒鍵を気持ちだけ下に落として該当のボールは新しく生成する
+                  blackKey[j].position.y -= 0.5;
+                  ballList[i].position.set(Math.random()*10 - 5,i+5,Math.random()*70); //位置を指定
+                }
+              }
+              if(count % 20 == 0 && blackKey[j] != null && blackKey[j].position.y < 1){
+                blackKey[j].position.y = 1;
+              }
+            }
+            if(ballList[i].position.y < -20){
+              ballList[i].position.set(Math.random()*10 - 5,i+5,Math.random()*70); //位置を指定
+            }
+          }
           // レンダリング
           renderer.render(scene, camera);
           requestAnimationFrame(update);
