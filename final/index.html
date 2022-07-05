@@ -26,9 +26,9 @@
         const scene = new THREE.Scene();
 
         // カメラを作成
-        const camera = new THREE.PerspectiveCamera(45, width / height);
+        const camera = new THREE.PerspectiveCamera(60, width / height);
         // カメラの初期座標を設定
-        camera.position.set(-50, 50, -60);
+        camera.position.set(-120, 70,10);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, document.body); 
@@ -57,9 +57,9 @@
         scene.add(light);
         // helper
         const gridHelper = new THREE.GridHelper(2,10); // size, step
-        scene.add(gridHelper);
+        //scene.add(gridHelper);
         const axisHelper = new THREE.AxesHelper(5); //軸の長さ　X：赤、Y：緑、z：青
-        scene.add(axisHelper);
+        //scene.add(axisHelper);
 
         var pianoGeometry = new THREE.BoxGeometry(14,60,80);
         //var pianoMaterial = new THREE.MeshPhongMaterial({color:0xffffff});
@@ -144,13 +144,13 @@
 
         //ボール
         var sphereGeometry = new THREE.SphereGeometry(1);
-        /*var textureLoader = new THREE.TextureLoader();  
+        var textureLoader = new THREE.TextureLoader();  
         var metal = textureLoader.load("metal.jpeg");
         var metalMat = new THREE.MeshStandardMaterial();
         metalMat.map = metal;
         metalMat.bumpMap = metal;
-        metalMat.bumpscale = 0.2;*/
-        var metalMat = new THREE.MeshPhongMaterial({color:0xff0000});
+        metalMat.bumpscale = 0.2;
+        //var metalMat = new THREE.MeshPhongMaterial({color:0xff0000});
         var ballList = [];
 
         var maxBall = 30;
