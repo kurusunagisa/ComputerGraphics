@@ -100,12 +100,12 @@
         var textureLoader = new THREE.TextureLoader();  
         var metal = textureLoader.load("metal.jpeg");
         var metalMat = new THREE.MeshStandardMaterial();
-        metalMat.map = niji;
-        metalMat.bumpMap = niji;
+        metalMat.map = metal;
+        metalMat.bumpMap = metal;
         metalMat.bumpscale = 0.2;
         var bollList = [];
         for(let i = 0;i < 20;i++){
-          boooList[i] = new THREE.Mesh(cubeGeometry, metalMat);
+          bollList[i] = new THREE.Mesh(SphereGeometry, metalMat);
           bollList[i].position.set(Math.random()*100 - 50,i*0.5-5,Math.random()*100 - 50); //位置を指定
           scene.add(bollList[i]);   // シーンに追加
         }
